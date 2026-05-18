@@ -10,9 +10,9 @@ const CHARS = {
   symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?",
 };
 
-function generate(length: number, opts: Record<string, boolean>): string {
+function generate(length: number, opts: { lowercase: boolean; uppercase: boolean; numbers: boolean; symbols: boolean }): string {
   const pool = Object.entries(CHARS)
-    .filter(([k]) => opts[k])
+    .filter(([k]) => opts[k as keyof typeof opts])
     .map(([, v]) => v)
     .join("");
   if (!pool) return "";
@@ -53,7 +53,7 @@ export default function HomePage() {
 
   useEffect(() => { regenerate(); }, [regenerate]);
 
-  const toggle = (k: string) => setOpts((o) => ({ ...o, [k]: !o[k] }));
+  const toggle = (k: keyof typeof opts) => setOpts((o) => ({ ...o, [k]: !o[k] }));
 
   const activeCount = Object.values(opts).filter(Boolean).length;
 
@@ -75,7 +75,7 @@ export default function HomePage() {
           <span className="text-sm font-bold w-8 text-right">{length}</span>
         </div>
         <div className="flex flex-wrap gap-2">
-          {Object.entries(CHARS).map(([k]) => (
+          {(Object.entries(CHARS) as [keyof typeof opts, string][]).map(([k]) => (
             <button key={k} onClick={() => toggle(k)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition border ${opts[k] ? "bg-emerald-50 border-emerald-300 text-emerald-800" : "bg-white border-zinc-200 text-zinc-400"}`}
             >
