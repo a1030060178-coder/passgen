@@ -122,8 +122,9 @@ export default function HomePage() {
         </button>
       </div>
 
-      <footer className="text-center mt-16 text-xs text-zinc-400 space-y-1">
+      <footer className="text-center mt-16 text-xs text-zinc-400 space-y-2">
         <p>Passwords are generated in your browser using crypto.getRandomValues(). Never transmitted anywhere.</p>
+        <p><a href="https://ko-fi.com/penn662500" target="_blank" className="text-zinc-500 hover:text-emerald-600 underline">☕ Support this tool on Ko-fi</a></p>
       </footer>
     </div>
   );
